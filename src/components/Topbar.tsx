@@ -6,15 +6,22 @@ const Topbar = () => (
     {/* Logo + greeting */}
     <div className="flex items-center gap-5 flex-1">
       {/* Inline SVG logo placeholder */}
-      <span className="h-9 w-9 flex items-center justify-center rounded-full bg-blue-100">
+      {/* <span className="h-9 w-9 flex items-center justify-center rounded-full bg-blue-100">
         <svg width="28" height="28" viewBox="0 0 48 48" fill="none" className="h-7 w-7">
           <circle cx="24" cy="24" r="22" fill="#226CE1" />
           <text x="50%" y="56%" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" dy=".3em">AI</text>
         </svg>
-      </span>
+      </span> */}
+      <div className="mt-[-7px]">  {/* move up */}
+        <img 
+          src="https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/images/company-library/media/logo/sn-logo-color.png" 
+          alt="ServiceNow Logo" 
+          className="h-16 object-contain" 
+        />
+      </div>
       {/* Greeting */}
       <span className="text-lg font-semibold text-primary">
-        Hi, <span className="text-blue-700">Alex Morgan</span>, Welcome!
+        Hi, <span className="text-blue-700">Alex Morgan</span>, Welcome to the Dashboard!
       </span>
     </div>
 

@@ -1,4 +1,3 @@
-
 import { Home, ListChecks, AlertTriangle, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,8 +9,8 @@ const nav = [
 ];
 
 const SidebarNav = () => (
-  <aside className="h-full bg-white shadow-md border-r border-sidebar-border flex flex-col min-w-[230px] w-56 z-20">
-    <nav className="flex flex-col gap-2 mt-10">
+  <aside>
+    {/* <nav className="flex flex-col gap-2 mt-10">
       {nav.map((item) => (
         <a
           key={item.label}
@@ -31,7 +30,7 @@ const SidebarNav = () => (
     <div className="flex-1"></div>
     <div className="mb-6 px-6 text-xs text-muted-foreground">
       &copy; 2025 City of Example
-    </div>
+    </div> */}
   </aside>
 );
 

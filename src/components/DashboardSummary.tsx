@@ -3,7 +3,7 @@ import { UserCheck2, Flag, ArrowUpRight, Users, DollarSign } from "lucide-react"
 
 const metrics = [
   {
-    title: "Total Applications",
+    title: "Application ID",
     value: 428,
     icon: UserCheck2,
     color: "bg-blue-100 text-blue-700"
@@ -14,20 +14,20 @@ const metrics = [
     icon: Flag,
     color: "bg-red-100 text-red-600"
   },
+  // {
+  //   title: "Escalated to Human",
+  //   value: 4,
+  //   icon: ArrowUpRight,
+  //   color: "bg-yellow-100 text-yellow-700"
+  // },
   {
-    title: "Escalated to Human",
-    value: 4,
-    icon: ArrowUpRight,
-    color: "bg-yellow-100 text-yellow-700"
-  },
-  {
-    title: "Avg. Childcare Hours",
+    title: "Childcare Hours Requested",
     value: 28.5,
     icon: Users,
     color: "bg-green-100 text-green-700"
   },
   {
-    title: "Avg. Household Income",
+    title: "Household Income",
     value: "$61,900",
     icon: DollarSign,
     color: "bg-gray-100 text-gray-700"
@@ -36,7 +36,7 @@ const metrics = [
 
 const DashboardSummary = () => (
   <section className="bg-card rounded-xl p-6 border border-border shadow-md mb-7 animate-fade-in">
-    <h2 className="text-xl font-semibold mb-4 tracking-tight">Summary</h2>
+    <h2 className="text-xl font-semibold mb-4 tracking-tight">Summary of applicant</h2>
     <div className="grid lg:grid-cols-1 grid-cols-2 gap-5">
       {metrics.map((m) => (
         <div key={m.title} className="flex items-center gap-4 py-2">
