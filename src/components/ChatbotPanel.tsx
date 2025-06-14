@@ -1,10 +1,8 @@
 
 import * as React from "react";
-import { Bot, User, FileInput } from "lucide-react";
+import { Bot, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { useFileApplicantDataContext } from "./AIPanel";
 
 type Message = { from: "human" | "ai", content: string };
 
@@ -18,8 +16,6 @@ const ChatbotPanel = () => {
   ]);
   const [input, setInput] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-
-  const { processFile, resetData } = useFileApplicantDataContext();
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,25 +35,6 @@ const ChatbotPanel = () => {
         description: mockResponse,
       });
     }, 900);
-  };
-
-  // File Upload logic
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
-
-  const handleFileButtonClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const file = evt.target.files?.[0];
-    if (file) {
-      processFile(file);
-      toast({
-        title: "File uploaded",
-        description: `"${file.name}" was uploaded and processed.`,
-      });
-    }
-    evt.target.value = "";
   };
 
   return (
@@ -104,9 +81,9 @@ const ChatbotPanel = () => {
           </div>
         )}
       </div>
-      {/* Chat input + File Upload */}
+      {/* Chat input */}
       <form
-        className="flex gap-2 p-4 border-t border-border items-center"
+        className="flex gap-2 p-4 border-t border-border"
         onSubmit={handleSend}
       >
         <input
@@ -116,23 +93,6 @@ const ChatbotPanel = () => {
           value={input}
           onChange={e => setInput(e.target.value)}
           disabled={loading}
-        />
-        <Button
-          type="button"
-          variant="secondary"
-          className="flex gap-2 items-center px-3 py-2"
-          onClick={handleFileButtonClick}
-          disabled={loading}
-        >
-          <FileInput className="w-4 h-4" />
-          Upload File
-        </Button>
-        <input
-          type="file"
-          ref={fileInputRef}
-          accept=".csv"
-          onChange={handleFileChange}
-          style={{ display: "none" }}
         />
         <button
           className="bg-blue-700 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-800 transition-colors disabled:opacity-50"
