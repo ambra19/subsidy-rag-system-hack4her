@@ -1,4 +1,3 @@
-
 import { Info } from "lucide-react";
 import * as React from "react";
 import { useFileApplicantData } from "@/hooks/useFileApplicantData";
@@ -28,10 +27,7 @@ const AIPanel = () => {
             {flagged.map((a) => (
               <li key={a.application_id} className="flex items-center">
                 <span>
-                  <span className="font-medium">ID:</span> {a.application_id}{" "}
-                  | <span className="font-medium">Flags:</span> {a.flagCount}{" "}
-                  | <span className="font-medium">Childcare Hours:</span> {a.childcare_hours_requested}{" "}
-                  | <span className="font-medium">Income:</span> {a.household_income}
+                  - ID: {a.application_id} | Flags: {a.flagCount} | Childcare Hours: {a.childcare_hours_requested} | Income: {a.household_income}
                 </span>
               </li>
             ))}
