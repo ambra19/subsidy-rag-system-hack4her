@@ -1,57 +1,44 @@
-import { Info } from "lucide-react";
-import * as React from "react";
-import { useFileApplicantData } from "@/hooks/useFileApplicantData";
 
-const AIPanel = () => {
-  const { flagged } = useFileApplicantDataContext();
+import { AlertCircle, Info, FlagTriangleRight } from "lucide-react";
 
-  return (
-    <section className="bg-secondary rounded-lg border border-border shadow-sm p-5 mb-4 animate-fade-in min-h-[140px]">
-      <div className="flex items-center gap-2 mb-2">
-        <Info className="w-5 h-5 text-blue-600" />
-        <h2 className="font-semibold text-lg">
-          Summary of Applicant
-        </h2>
-      </div>
-      <div className="mt-1">
-        {flagged === null ? (
-          <span className="text-muted-foreground text-sm">
-            No file uploaded. Please upload a file to view flagged cases.
-          </span>
-        ) : flagged.length === 0 ? (
-          <span className="text-muted-foreground text-sm">
-            No flagged cases found.
-          </span>
-        ) : (
-          <ul className="space-y-2 text-sm mt-2 list-none pl-0 text-primary">
-            {flagged.map((a) => (
-              <li key={a.application_id} className="flex items-center">
-                <span>
-                  - ID: {a.application_id} | Flags: {a.flagCount} | Childcare Hours: {a.childcare_hours_requested} | Income: {a.household_income}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </section>
-  );
+const mockAIState = {
+  steps: [
+    "Reviewing eligibility: household income below threshold.",
+    "Verifying number of qualifying children.",
+    "Detected missing proof of employment document.",
+    "Flagged for manual documentation check.",
+    "Estimated decision: Recommend for further review."
+  ],
+  flags: [
+    "Missing: Employment proof",
+    "High childcare hours requested"
+  ],
+  explanation: "The application is flagged because required proof of employment is missing, and the requested childcare hours are above typical averages. Manual inspection recommended."
 };
 
-// Context provider for file applicant data
-const FileApplicantDataContext = React.createContext<ReturnType<typeof useFileApplicantData> | null>(null);
-export function FileApplicantDataProvider({ children }: { children: React.ReactNode; }) {
-  const val = useFileApplicantData();
-  return (
-    <FileApplicantDataContext.Provider value={val}>
-      {children}
-    </FileApplicantDataContext.Provider>
-  );
-}
-export function useFileApplicantDataContext() {
-  const ctx = React.useContext(FileApplicantDataContext);
-  if (!ctx) throw new Error("useFileApplicantDataContext must be used within a FileApplicantDataProvider");
-  return ctx;
-}
+const AIPanel = () => (
+  <section className="bg-secondary rounded-lg border border-border shadow-sm p-5 mb-4 animate-fade-in">
+    <div className="flex items-center gap-2 mb-2">
+      <Info className="w-5 h-5 text-blue-600" />
+      <h2 className="font-semibold text-lg">AI Reasoning Steps</h2>
+    </div>
+    <ol className="list-decimal ml-5 text-sm text-muted-foreground space-y-1">
+      {mockAIState.steps.map((step, i) => (
+        <li key={i}>{step}</li>
+      ))}
+    </ol>
+    <div className="mt-4 flex items-center gap-2 text-red-600 text-sm">
+      <FlagTriangleRight className="w-5 h-5" />
+      <div>
+        <span className="font-medium">Flags: </span>
+        {mockAIState.flags.join(" • ")}
+      </div>
+    </div>
+    <div className="mt-2 flex items-start gap-2 text-sm text-primary">
+      <AlertCircle className="h-4 w-4 mt-[2px]" />
+      <span className="italic">{mockAIState.explanation}</span>
+    </div>
+  </section>
+);
 
 export default AIPanel;
