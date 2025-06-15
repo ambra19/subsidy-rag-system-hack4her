@@ -1,14 +1,12 @@
-
 import * as React from "react";
 import { Bot, User, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
+import axios from 'axios';
 
 type Message = { from: "human" | "ai", content: string };
 
-const mockWelcome = "How can I assist you with this subsidy application?";
-const mockResponse =
-  "Based on the provided documents, this application may require escalation due to missing information. Would you like more details?";
+const mockWelcome = "Ask anything about the subsidy application process.";
 
 const ChatbotPanel = () => {
   const [messages, setMessages] = React.useState<Message[]>([
@@ -37,24 +35,40 @@ const ChatbotPanel = () => {
     }
   };
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
+
+    // Add the user's message to the chat
     setMessages((msgs) => [...msgs, { from: "human", content: input.trim() }]);
     setInput("");
     setLoading(true);
 
-    setTimeout(() => {
+    try {
+      // Send the message to the API
+      const response = await axios.post('http://localhost:8000/chat', {
+        content: input.trim()
+      });
+
+      // Add the AI's response to the chat
       setMessages((msgs) => [
         ...msgs,
-        { from: "ai", content: mockResponse }
+        { from: "ai", content: response.data.response }
       ]);
-      setLoading(false);
+
       toast({
         title: "AI Agent responded",
-        description: mockResponse,
+        description: response.data.response,
       });
-    }, 900);
+    } catch (error) {
+      console.error("Error sending message to API:", error);
+      toast({
+        title: "Error",
+        description: "Failed to get a response from the AI agent.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

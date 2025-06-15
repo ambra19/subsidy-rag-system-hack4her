@@ -1,0 +1,43 @@
+application_id,applicant_name,household_income,employment_status,num_children,child_ages,childcare_hours_requested,housing_situation,partner_employed,recent_municipal_support,flags,incomplete_docs,high_hours_request,income_mismatch
+A001,Laura Visser,63506,unemployed,1,3,137,municipal housing,TRUE,food aid,"{'incomplete_docs': True, 'high_hours_request': True, 'income_mismatch': False}",TRUE,TRUE,FALSE
+A006,Laura Visser,63506,unemployed,1,3,127,municipal housing,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A010,Laura Visser,63506,unemployed,1,3,123,municipal housing,TRUE,food aid,"{'incomplete_docs': True, 'high_hours_request': True, 'income_mismatch': False}",TRUE,TRUE,FALSE
+A013,Laura Visser,63506,unemployed,1,3,111,municipal housing,TRUE,food aid,"{'incomplete_docs': True, 'high_hours_request': True, 'income_mismatch': False}",TRUE,TRUE,FALSE
+A016,Laura Visser,63506,unemployed,1,3,122,municipal housing,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A002,Amina Hassan,20130,unemployed,1,3,100,temporary shelter,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': False, 'income_mismatch': False}",FALSE,FALSE,FALSE
+A020,Amina Hassan,20130,unemployed,1,3,62,temporary shelter,TRUE,food aid,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A003,Raj Patel,22287,part-time,1,3,71,rental,TRUE,"housing benefit,food aid","{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A008,Raj Patel,22287,part-time,1,3,83,rental,TRUE,"housing benefit,food aid","{'incomplete_docs': False, 'high_hours_request': False, 'income_mismatch': False}",FALSE,FALSE,FALSE
+A012,Raj Patel,22287,part-time,1,3,48,rental,TRUE,"housing benefit,food aid","{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A019,Raj Patel,22287,part-time,1,3,44,rental,TRUE,"housing benefit,food aid","{'incomplete_docs': False, 'high_hours_request': False, 'income_mismatch': False}",FALSE,FALSE,FALSE
+A004,Mohammed El Amrani,89012,part-time,1,6,97,municipal housing,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': False, 'income_mismatch': False}",FALSE,FALSE,FALSE
+A005,Anouk Smit,40585,self-employed,3,"2,5,6",104,owned,FALSE,"housing benefit,food aid","{'incomplete_docs': True, 'high_hours_request': True, 'income_mismatch': False}",TRUE,TRUE,FALSE
+A014,Anouk Smit,40585,self-employed,3,"2,5,6",42,owned,FALSE,"housing benefit,food aid","{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A007,Kimberly van Dijk,38086,unemployed,4,"0,1,2,3",86,temporary shelter,FALSE,food aid,"{'incomplete_docs': False, 'high_hours_request': False, 'income_mismatch': False}",FALSE,FALSE,FALSE
+A009,Sara Nguyen,23952,self-employed,1,3,82,municipal housing,FALSE,housing benefit,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A015,Sara Nguyen,23952,self-employed,1,3,137,municipal housing,FALSE,housing benefit,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A011,Carlos Mendes,44269,part-time,3,"1,3,5",62,rental,TRUE,food aid,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A017,Fatima de Jong,82736,part-time,1,0,68,municipal housing,FALSE,"housing benefit,food aid","{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A018,Jeroen Bakker,59549,self-employed,1,1,99,temporary shelter,TRUE,food aid,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A021,Carlos Hoefdraad,60285,unemployed,1,0,98,rented,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A022,Renée Rambaran,57344,employed,2,"8,11",40,temporary shelter,FALSE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A023,Ahmed El Idrissi,23132,part-time,1,14,129,with relatives,FALSE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A024,Fatima Benali,16897,part-time,4,"2,6,12,13",125,with relatives,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A025,Emine Kaya,49065,freelancer,3,"3,10,14",108,with relatives,FALSE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A026,Mustafa Yilmaz,20507,employed,4,"5,9,9,14",109,owned,FALSE,housing benefit,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A027,Dewi Handoko,47560,unemployed,4,"0,4,8,12",55,owned,TRUE,housing benefit,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A028,Sinta Wijaya,38579,student,4,"8,9,13,15",22,owned,FALSE,housing benefit,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A029,Jakub Nowak,58275,student,1,3,24,with relatives,FALSE,housing benefit,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A030,Anna Kowalska,20971,unemployed,3,"3,4,12",131,owned,TRUE,housing benefit,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A031,Ahmad Rahimi,20764,student,1,2,121,rented,TRUE,housing benefit,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A032,Leila Hassan,15427,freelancer,3,"3,4,12",104,rented,TRUE,food aid,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A033,Maaike de Jong,68971,employed,1,12,37,owned,FALSE,food aid,"{'incomplete_docs': True, 'high_hours_request': False, 'income_mismatch': False}",TRUE,FALSE,FALSE
+A034,Bram van Dijk,62035,part-time,3,"1,2,10",149,temporary shelter,FALSE,food aid,"{'incomplete_docs': False, 'high_hours_request': False, 'income_mismatch': False}",FALSE,FALSE,FALSE
+A035,Priya Sharma,46942,freelancer,2,"5,10",94,rented,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A036,Kwame Mensah,38757,part-time,4,"4,4,12,13",78,rented,FALSE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A037,Aisha Mohammed,72552,employed,1,14,88,with relatives,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A038,Igor Petrov,39017,employed,4,"11,13,15,15",102,temporary shelter,FALSE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A039,Lucia Fernández,61580,unemployed,1,13,121,rented,FALSE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A040,Sophie Dubois,36271,unemployed,2,"0,15",122,temporary shelter,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A041,Sophie Dubois,36271,unemployed,2,"0,15",122,temporary shelter,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
+A042,Sophie Dubois,36271,unemployed,2,"0,15",122,temporary shelter,TRUE,food aid,"{'incomplete_docs': False, 'high_hours_request': True, 'income_mismatch': False}",FALSE,TRUE,FALSE
