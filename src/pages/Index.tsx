@@ -24,7 +24,7 @@ const Index = () => {
         <div className="flex-1 grid grid-cols-12 gap-6 px-10 py-7 max-w-full w-full">
           {/* Left main: Dashboard summary (col-span-3 on desktop) */}
           <div className="col-span-12 lg:col-span-3">
-            <DashboardSummary applicants={[]}/>
+            <DashboardSummary/>
           </div>
 
           {/* Right main: AI panel + Chatbot (col-span-9 on desktop) */}
