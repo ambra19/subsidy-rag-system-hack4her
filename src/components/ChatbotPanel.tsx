@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Bot, User, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { toast } from "@/hooks/use-toast";
+// import { toast } from "@/hooks/use-toast";
 import axios from 'axios';
 
 type Message = { from: "human" | "ai", content: string };
@@ -22,18 +22,18 @@ const ChatbotPanel = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      console.log("Uploaded file:", file.name);
-      toast({
-        title: "File uploaded",
-        description: `You uploaded "${file.name}".`,
-      });
-      // Clear value to allow uploading same file again if needed
-      e.target.value = "";
-    }
-  };
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     // console.log("Uploaded file:", file.name);
+  //     // toast({
+  //     //   title: "File uploaded",
+  //     //   description: `You uploaded "${file.name}".`,
+  //     // });
+  //     // Clear value to allow uploading same file again if needed
+  //     e.target.value = "";
+  //   }
+  // };
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,31 +56,33 @@ const ChatbotPanel = () => {
         { from: "ai", content: response.data.response }
       ]);
 
-      toast({
-        title: "AI Agent responded",
-        description: response.data.response,
-      });
+      // toast({
+      //   title: "AI Agent responded",
+      //   description: response.data.response,
+      // });
     } catch (error) {
       console.error("Error sending message to API:", error);
-      toast({
-        title: "Error",
-        description: "Failed to get a response from the AI agent.",
-      });
+      // toast({
+      //   title: "Error",
+      //   description: "Failed to get a response from the AI agent.",
+      // });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="flex flex-col h-full bg-white rounded-xl border border-border shadow-md">
+    // <section className="flex flex-col h-full bg-white rounded-xl border border-border shadow-md">
+    <section className="flex flex-col max-h-[500px] h-full bg-white rounded-xl border border-border shadow-md">
       <div className="flex items-center gap-2 p-4 border-b border-border">
         <Bot className="w-5 h-5 text-green-600" />
         <h2 className="font-semibold text-lg flex-1">AI Chat</h2>
         <span className="text-xs text-muted-foreground">Agent online</span>
       </div>
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
-        {messages.map((msg, i) => (
+      {/* <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 max-h-[400px] scroll-smooth"> */}
+      <div className="flex-grow overflow-y-auto px-4 py-3 space-y-3 scroll-smooth">
+      {messages.map((msg, i) => (
           <div
             key={i}
             className={cn(
@@ -120,25 +122,25 @@ const ChatbotPanel = () => {
         className="flex gap-2 p-4 border-t border-border"
         onSubmit={handleSend}
       >
-        <input
+        {/* <input
           ref={fileInputRef}
           type="file"
           accept=".csv"
           className="hidden"
           onChange={handleFileChange}
-        />
-        <button
+        /> */}
+        {/* <button
           type="button"
           className="inline-flex items-center justify-center rounded-md border border-border bg-muted px-3 py-2 text-primary hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           onClick={handleFileButtonClick}
           title="Upload CSV File"
-        >
-          <Upload className="w-5 h-5" />
-        </button>
+        > */}
+          {/* <Upload className="w-5 h-5" />
+        </button> */}
         <input
           className="flex-1 outline-none px-4 py-2 rounded-md border border-border bg-muted"
           type="text"
-          placeholder="Type your question about the subsidy case…"
+          placeholder="Talk with our AI Agent..."
           value={input}
           onChange={e => setInput(e.target.value)}
           disabled={loading}

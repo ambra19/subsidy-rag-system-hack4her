@@ -21,7 +21,7 @@ const Topbar = () => (
       </div>
       {/* Greeting */}
       <span className="text-lg font-semibold text-primary">
-        Hi, <span className="text-blue-700">Alex Morgan</span>, Welcome to the Dashboard!
+        Hello, <span className="text-blue-700">Alex!</span> Interact with Stix to get started on your tasks.
       </span>
     </div>
 
