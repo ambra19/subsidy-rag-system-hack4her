@@ -33,7 +33,7 @@ const DashboardSummary = () => {
   if (loading) {
     return (
       <section className="bg-card rounded-xl p-6 border border-border shadow-md mb-7 animate-fade-in">
-        <h2 className="text-xl font-semibold mb-4 tracking-tight">Summary of applicant</h2>
+        <h2 className="text-xl font-semibold mb-4 tracking-tight">Summary of incomplete applications</h2>
         <p>Loading applicants...</p>
       </section>
     );
@@ -42,7 +42,7 @@ const DashboardSummary = () => {
   if (!Array.isArray(applicants) || applicants.length === 0) {
     return (
       <section className="bg-card rounded-xl p-6 border border-border shadow-md mb-7 animate-fade-in">
-        <h2 className="text-xl font-semibold mb-4 tracking-tight">Summary of applicant</h2>
+        <h2 className="text-xl font-semibold mb-4 tracking-tight">Summary of incomplete applications</h2>
         <p>No applicants available.</p>
       </section>
     );
@@ -101,7 +101,7 @@ const DashboardSummary = () => {
 
   return (
     <section className="bg-card rounded-xl p-6 border border-border shadow-md mb-7 animate-fade-in">
-      <h2 className="text-xl font-semibold mb-4 tracking-tight">Summary of applicant</h2>
+      <h2 className="text-xl font-semibold mb-4 tracking-tight">Flagged / Incomplete applications</h2>
       <div className="grid lg:grid-cols-1 grid-cols-2 gap-5">
         {metrics.map((m) => (
           <div key={m.title} className="flex items-center gap-4 py-2">

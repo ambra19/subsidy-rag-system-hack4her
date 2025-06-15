@@ -3,6 +3,7 @@ import os
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
+import difflib
 
 from tapeagents.agent import Agent
 from tapeagents.dialog_tape import DialogTape, UserStep, AssistantThought, AssistantStep
@@ -27,11 +28,31 @@ llm = OpenrouterLLM(
     api_token=api_key,
 )
 
+def search_similar_entries(query: str, top_n: int = 42):
+    try:
+        df = pd.read_csv("docs/cleaned_csv_data.csv")
+
+        # Drop PII
+        df = df.drop(columns=["applicant_name"], errors="ignore")
+
+        # Flatten all rows to string for fuzzy matching
+        entries = df.astype(str).to_dict(orient="records")
+        flat_strings = [" ".join(row.values()) for row in entries]
+
+        # Get top-N matches using similarity
+        matches = difflib.get_close_matches(query, flat_strings, n=top_n, cutoff=0.1)
+
+        matched_entries = [entries[i] for i, text in enumerate(flat_strings) if text in matches]
+        return matched_entries
+    except Exception as e:
+        return [{"error": str(e)}]
+
 # Function to count applications
 def count_applications():
     try:
         # Get the path to the CSV file
-        csv_path = Path("examples/childcare_subsidy/docs/cleaned_csv_data.csv")
+        csv_path = Path("docs/cleaned_csv_data.csv")
+        print(f"Looking for CSV file at: {csv_path.absolute()}")
         df = pd.read_csv(csv_path)
         
         total_applications = len(df)
@@ -58,9 +79,8 @@ class CSVLookupNode(Node):
     name: str = "csv_lookup"
 
     def make_prompt(self, agent, tape: DialogTape) -> Prompt:
-        guidance = """You are an assistant that helps analyze childcare subsidy applications.
-        When asked about applications, you should:
-        1. First, understand what specific information the user needs
+        guidance = """When asked about applications' status, you should:
+        1. First, understand what specific information the user needs (e.g. number of applications, number of incomplete applications, etc.)
         2. Then, use the count_applications() function to get the data
         3. Finally, provide a response that directly answers their question using the exact numbers
         
@@ -79,27 +99,48 @@ class CSVLookupNode(Node):
         )
 
     def generate_steps(self, agent, tape, llm_stream: LLMStream):
-        # Get the data first
-        count_result = count_applications()
-        
-        # Let the LLM formulate a response using the data
-        response_prompt = Prompt(
-            messages=[
-                system_message,
-                {"role": "user", "content": f"Based on this data: {count_result}\nProvide a clear, direct response to the user's question. Use the exact numbers from the data."}
-            ]
-        )
-        response_stream = llm.generate(response_prompt)
-        response = response_stream.get_output().content
-        
+        user_question = [step.content for step in reversed(tape.steps) if isinstance(step, UserStep)][0]
+
+        # Use both structured and unstructured responses
+        count_data = count_applications()
+        match_data = search_similar_entries(user_question)
+
+        summarized_matches = "\n".join([
+            f"- Employment: {row.get('employment_status', 'unknown')}, "
+            f"Num children: {row.get('num_children', 'unknown')}, "
+            f"Childcare hours: {row.get('childcare_hours_requested', 'unknown')}, "
+            f"Incomplete docs: {row.get('incomplete_docs', 'unknown')}, "
+            f"Support: {row.get('recent_municipal_support', 'unknown')}"
+            for row in match_data
+        ])
+
+        prompt = Prompt(messages=[
+        system_message,
+        {"role": "user", "content": f"""You are answering a question using two sources:
+
+        1. Structured counts:
+        {count_data}
+
+        2. Matching application records:
+        {summarized_matches}
+
+        Now answer this user question based only on the information above:
+        "{user_question}"
+
+        Only use what’s in the data. Do not speculate. Be professional and helpful."""}
+        ])
+
+        response = llm.generate(prompt).get_output().content
+
         yield AssistantStep(content=response)
-        yield SetNextNode(next_node="chat")  # Always go back to chat after providing data
+        yield SetNextNode(next_node="chat")
+
 
 class WelcomeNode(Node):
     name: str = "welcome"
 
     def make_prompt(self, agent, tape: DialogTape) -> Prompt:
-        guidance = "Greet the user only at the beginning of the conversation using: ""Hello, my name is Stix 👋 . I'm an assistant working at a municipality in the Netherlands. How can I help you today? Let me know if you would like to see the status of the applications and get more information about the process."" and ask how you can help them today."
+        guidance = "Greet the user using: ""Hello, my name is Stix 👋 . I'm an assistant working at a municipality in the Netherlands. How can I help you today? Let me know if you would like to see the status of the applications and get more information about the process."" and ask how you can help them today."
         guidance_message = {"role": "user", "content": guidance}
         return Prompt(
             messages=[system_message] + tape_to_messages(tape) + [guidance_message]
@@ -124,10 +165,10 @@ class ChatNode(Node):
         - Any numerical data about applications
         
         You should transition to the csv_lookup node to get accurate data.
-        For all other questions, respond directly.
+        For all other questions, respond directly, keep a friendly and professional tone. Make conversational flow and be kind and helpful.
         
-        To transition to csv_lookup, use SetNextNode(next_node="csv_lookup").
-        To stay in chat, use SetNextNode(next_node="chat")."""
+        To transition to csv_lookup, use SetNextNode(next_node="csv_lookup"). DO NOT show the user the SetNextNode.
+        To stay in chat, use SetNextNode(next_node="chat"). DO NOT show the user the SetNextNode."""
         guidance_message = {"role": "user", "content": guidance}
         return Prompt(
             messages=[system_message] + tape_to_messages(tape) + [guidance_message]
@@ -135,8 +176,7 @@ class ChatNode(Node):
 
     def generate_steps(self, agent, tape, llm_stream: LLMStream):
         if content := llm_stream.get_output().content:
-            # Check if the response indicates we should look up data
-            if any(keyword in content.lower() for keyword in ["looking up", "checking data", "getting numbers", "let me check"]):
+            if any(keyword in content.lower() for keyword in ["looking up", "checking data", "getting numbers"]):
                 yield SetNextNode(next_node="csv_lookup")
             else:
                 yield AssistantStep(content=content)
@@ -176,24 +216,13 @@ def process_agent_response(agent, tape, environment):
             # If this was a set_next_node step, continue the loop to get the actual response
             if '"kind": "set_next_node"' in llm_view:
                 continue
+            print("Returning tape after step:")
+            print(tape)
             return tape
         elif event.agent_tape:
+            print("Returning final agent_tape:")
+            print(event.agent_tape)
             return event.agent_tape
+    print(tape)
     return tape
 
-# Start the conversation loop
-print("Welcome! Type 'quit' to end the conversation.")
-user_input = input("\nYou: ").strip()
-tape = DialogTape(steps=[UserStep(content=user_input)])
-tape = process_agent_response(agent, tape, environment)
-
-while True:
-    user_input = input("\nYou: ").strip()
-    if user_input.lower() == 'quit':
-        print("\nFull conversation history:")
-        print(tape)
-        print("\nGoodbye! Have a great day!")
-        break
-    
-    tape = tape.append(UserStep(content=user_input))
-    tape = process_agent_response(agent, tape, environment)

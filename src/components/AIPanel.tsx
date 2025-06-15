@@ -5,9 +5,9 @@ const mockAIState = {
   steps: [
     "Retrieve total daily applications from the database",
     "Retrieve incomplete applications",
-    "Take applications to the next step in the process",
     "Draft a letter / email to the applicant",
-    "Detected missing proof of employment document.",
+    "Check for inconsistencies between documents",
+    "Auto-score risk flags",
   ],
   flags: [
     "The AI Agent can flag applications that are missing required documents, have high childcare hours requested, or are missing other information.",
