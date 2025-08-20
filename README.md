@@ -14,7 +14,7 @@ Part of the Hack4Her 2025 Hackathon, this project comes as an AI Navigator for p
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/subsidy-ai-navigator.git
+git clone https://github.com/ambra19/subsidy-ai-navigator.git
 cd subsidy-ai-navigator
 ```
 
