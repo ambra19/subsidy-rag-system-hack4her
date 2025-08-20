@@ -2,7 +2,7 @@
 
 Part of the Hack4Her 2025 Hackathon, this project comes as an AI Navigator for processing childcare subsidy applications. Built on top of the TapeAgents framework for the ServiceNow challenge.
 
-[Screenshot](frontend/src/images/Hack4Her.png)
+![Screenshot](frontend/src/images/Hack4Her.png)
 
 ## Prerequisites
 
